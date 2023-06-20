@@ -1,3 +1,4 @@
+# Obeida Alwani CSE-3666 Lab 3
 .data
 .align 2
 str:	.space 100
