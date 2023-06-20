@@ -1,0 +1,50 @@
+# CSE-3666 Lab 3
+.data
+.align 2
+str:	.space 100
+.text
+	# get the user string input
+	la a0,str
+	li a1,100
+	li a7,8
+	ecall
+		
+	# load address to t1
+	la t0,str
+	# put value in t1,t2
+	li t1,0 # i = 0
+	li t2,0 # j = 0
+	li s1,32 # space value 
+do: # do 
+	# add i to base address of str
+	add t4,t1,t0
+	# load the character
+	lb t4,(t4)
+	# if character is space do not copy
+	beq t4,s1,else # go to else
+	# otherwise copy the
+	# character
+	add t5,t2,t0
+	sb t4,(t5)
+	addi t2,t2,1 # increment j
+else:
+	# increment i
+	addi t1,t1,1
+	# load the ith character
+	add t5,t1,t0
+	lb t5,(t5)
+	# if not end of string go to do
+	bnez t5,do # while c !- 0
+	# put \0 in the string end
+	add t4,t2,t0
+	sb zero,(t4)
+	
+	# print the modified string
+	la a0,str
+	li a1,100
+	li a7,4
+	ecall
+	# exit 0
+	li a0,0
+	li a7,93
+	ecall
